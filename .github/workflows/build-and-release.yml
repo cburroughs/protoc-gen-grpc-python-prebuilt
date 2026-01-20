@@ -107,6 +107,20 @@ jobs:
             bazel-${{ matrix.os }}-${{ matrix.grpc_version }}-
             bazel-${{ matrix.os }}-
 
+      - name: Debug toolchain versions
+        if: runner.os == 'Linux'
+        run: |
+          echo "=== GCC versions ==="
+          gcc --version
+          ls -la /usr/bin/gcc* || true
+          echo "=== Clang versions ==="
+          clang --version
+          ls -la /usr/bin/clang* || true
+          echo "=== libstdc++ GLIBCXX versions ==="
+          strings /usr/lib/*/libstdc++.so.6 | grep GLIBCXX | sort -V | tail -10
+          echo "=== libstdc++ location ==="
+          ldconfig -p | grep libstdc++
+
       - name: Build protoc-gen-grpc-python
         working-directory: grpc-source
         run: |
