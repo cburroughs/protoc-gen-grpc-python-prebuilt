@@ -2,7 +2,7 @@ name: Build and Release protoc-gen-grpc-python
 
 on:
   push:
-    branches: [main]
+    branches: [main, csb/arm-debug]
     tags: ['v*']
   pull_request:
     branches: [main]
